@@ -1,0 +1,39 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>userAdd</servlet-name>
+  	<servlet-class>com.mmsp.UserAdd</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>userUpd</servlet-name>
+  	<servlet-class>com.mmsp.UserUpd</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>userDel</servlet-name>
+  	<servlet-class>com.mmsp.UserDel</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>userRoom</servlet-name>
+  	<servlet-class>com.mmsp.UserRoom</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>userAdd</servlet-name>
+   	<url-pattern>/userAdd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>userUpd</servlet-name>
+   	<url-pattern>/userUpd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>userDel</servlet-name>
+   	<url-pattern>/userDel</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>userRoom</servlet-name>
+   	<url-pattern>/userRoom</url-pattern>
+  </servlet-mapping>
+</web-app>
