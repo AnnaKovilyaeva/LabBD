@@ -35,6 +35,8 @@ public class DAO<T> {
 		session.delete(obj);
 		System.out.println("Deleted Successfully");
 		session.getTransaction().commit();
+		session.flush();
+		session.close();
 	}
 	
 	public void update(T obj) {
@@ -44,6 +46,8 @@ public class DAO<T> {
 		session.saveOrUpdate(obj);
 		System.out.println("Save or Update Successfully");
 		session.getTransaction().commit();
+		session.flush();
+		session.close();
 	}
 
 	public List<T> getAll(T obj) {
@@ -76,6 +80,8 @@ public class DAO<T> {
 		else
 			System.err.println("NOT FOUND by ID");
 		session.getTransaction().commit();
+		session.flush();
+		session.close();
 		return value;
 	}
 
@@ -90,6 +96,8 @@ public class DAO<T> {
 			System.out.println(obj_out.toString());
 		}
 		session.getTransaction().commit();
+		session.flush();
+		session.close();
 		return objects;
 	}
 }
