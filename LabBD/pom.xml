@@ -23,7 +23,7 @@
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-core</artifactId>
-		<version>4.3.11.Final<!--5.0.2.Final--></version>
+		<version>4.3.11.Final</version>
 	</dependency>
 	<dependency>
 		<groupId>org.apache.derby</groupId>
@@ -33,5 +33,16 @@
   </dependencies>  
   <build>
     <finalName>LabBD</finalName>
+    <plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.5</version>
+			<configuration>
+				<source>8</source>
+				<target>8</target>
+			</configuration>
+		</plugin>
+	</plugins>
   </build>
 </project>

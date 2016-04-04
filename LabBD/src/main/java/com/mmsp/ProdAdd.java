@@ -1,6 +1,7 @@
 package com.mmsp;
 
 import com.mmsp.dao.DAO;
+import com.mmsp.model.Product;
 import com.mmsp.model.Userd;
 import javax.servlet.ServletException;
 import javax.servlet.SingleThreadModel;
@@ -9,30 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UserAdd extends HttpServlet implements SingleThreadModel {
+public class ProdAdd extends HttpServlet implements SingleThreadModel {
 
 	private static final long serialVersionUID = -5194851994417726484L;
-	private String fN;
-	private String lN;
-	private String mN;
+	private String pN;
+	private String pC;
 	private String sId;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		sId = request.getParameter("id");
-		fN = request.getParameter("firstName");
-		lN = request.getParameter("lastName");
-		mN = request.getParameter("middleName");
+		pN = request.getParameter("prodName");
+		pC = request.getParameter("prodCount");
 		doIt(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		sId = request.getParameter("id");
-		fN = request.getParameter("firstName");
-		lN = request.getParameter("lastName");
-		mN = request.getParameter("middleName");
+		pN = request.getParameter("prodName");
+		pC = request.getParameter("prodCount");
 
 		doIt(request, response);
 	}
@@ -40,16 +38,17 @@ public class UserAdd extends HttpServlet implements SingleThreadModel {
 	private void doIt(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		response.setStatus(200);
-		DAO<Userd> dao_User = new DAO<Userd>();
+		DAO<Product> dao_Prod = new DAO<>();
 		try {
 			if (sId != null && !sId.equals("null") && !sId.equals("")) {
-				dao_User.update(new Userd(Long.valueOf(sId), fN, lN, mN));
+				dao_Prod.update(new Product(Long.valueOf(sId), pN, Integer.parseInt(pC)));
 			} else {
-				dao_User.add(new Userd(fN, lN, mN));	
+				dao_Prod.add(new Product(pN, Integer.parseInt(pC)));	
 			}
 		} catch (java.lang.NumberFormatException ex) {
+			// какой-то мудила ввёл не цифру, а букву
 			ex.printStackTrace();
 		}
-		response.sendRedirect("userRoom");
+		response.sendRedirect("prodRoom");
 	}
 }

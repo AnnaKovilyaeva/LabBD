@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Add Product</title>
+	</head>
+	<script type="text/javascript">
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			url = url.toLowerCase(); // This is just to avoid case sensitiveness  
+			name = name.replace(/[\[\]]/g, "\\$&").toLowerCase();// This is just to avoid case sensitiveness for query parameter name
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+		function init() {
+			document.getElementById('pId').value = getParameterByName("id");
+			document.getElementById('pPn').value = getParameterByName("prodName");
+			document.getElementById('pPc').value = getParameterByName("prodCount");
+		}
+	</script>
+	<body onload="init()">
+		<h1>Add Product</h1>
+		<form action="prodAdd" method="post">
+			<input type="hidden" name="id" value="" id="pId"/>
+			<br>Product Name:
+			<input type="text" name="prodName" value="" id="pPn" />
+			<br>Product Count:
+			<input type="text" name="prodCount" value="" id="pPc" />
+			<br>
+			<input type="submit" name="Submit">
+		</form>
+	</body>
+</html>

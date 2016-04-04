@@ -13,6 +13,31 @@ import javax.persistence.Table;
 @Table(name = "PRODUCT")
 public class Product {
 
+	public Product() {
+		super();
+	}
+
+	public Product(Long id) {
+		super();
+		this.id = id;
+		this.requistion = null;
+	}
+
+	public Product(Long lVal, String pN, int pC) {
+		super();
+		this.id = lVal;
+		this.prodCount = pC;
+		this.prodName = pN;
+		this.requistion = null;
+	}
+
+	public Product(String pN, int pC) {
+		super();
+		this.prodCount = pC;
+		this.prodName = pN;		
+		this.requistion = null;
+	}
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRODUCT_ID")
@@ -27,4 +52,36 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "REQUISITION_ID")
 	private Requisition requistion;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getProdName() {
+		return prodName;
+	}
+
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+
+	public Integer getProdCount() {
+		return prodCount;
+	}
+
+	public void setProdCount(Integer prodCount) {
+		this.prodCount = prodCount;
+	}
+
+	public Requisition getRequistion() {
+		return requistion;
+	}
+
+	public void setRequistion(Requisition requistion) {
+		this.requistion = requistion;
+	}
 }

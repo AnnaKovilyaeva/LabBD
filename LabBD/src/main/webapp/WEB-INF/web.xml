@@ -5,6 +5,12 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
+  	<servlet-name>initH</servlet-name>
+  	<servlet-class>com.mmsp.InitHibernate</servlet-class>
+  </servlet>
+  
+  
+  <servlet>
   	<servlet-name>userAdd</servlet-name>
   	<servlet-class>com.mmsp.UserAdd</servlet-class>
   </servlet>
@@ -20,6 +26,33 @@
   	<servlet-name>userRoom</servlet-name>
   	<servlet-class>com.mmsp.UserRoom</servlet-class>
   </servlet>
+  
+  
+  <servlet>
+  	<servlet-name>prodRoom</servlet-name>
+  	<servlet-class>com.mmsp.ProdRoom</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>prodUpd</servlet-name>
+  	<servlet-class>com.mmsp.ProdUpd</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>prodAdd</servlet-name>
+  	<servlet-class>com.mmsp.ProdAdd</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>prodDel</servlet-name>
+  	<servlet-class>com.mmsp.ProdDel</servlet-class>
+  </servlet>
+  
+  
+  
+  <servlet-mapping>
+  	<servlet-name>initH</servlet-name>
+   	<url-pattern>/initH</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet-mapping>
   	<servlet-name>userAdd</servlet-name>
    	<url-pattern>/userAdd</url-pattern>
@@ -35,5 +68,23 @@
   <servlet-mapping>
   	<servlet-name>userRoom</servlet-name>
    	<url-pattern>/userRoom</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>prodRoom</servlet-name>
+   	<url-pattern>/prodRoom</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>prodUpd</servlet-name>
+   	<url-pattern>/prodUpd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>prodAdd</servlet-name>
+   	<url-pattern>/prodAdd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>prodDel</servlet-name>
+   	<url-pattern>/prodDel</url-pattern>
   </servlet-mapping>
 </web-app>

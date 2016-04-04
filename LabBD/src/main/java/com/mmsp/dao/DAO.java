@@ -26,7 +26,7 @@ public class DAO<T> {
 		session.close();
 		return iValue;
 	}
-	
+
 	public void remove(T obj) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();  
 		Session session = sessionFactory.openSession();  
@@ -38,7 +38,7 @@ public class DAO<T> {
 		session.flush();
 		session.close();
 	}
-	
+
 	public void update(T obj) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();  
 		Session session = sessionFactory.openSession();
