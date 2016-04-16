@@ -39,16 +39,16 @@ public class Product {
 	}
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PRODUCT_ID")
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "PRODUCT_ID")
+	private Long id;
 
 	@Column(name = "PRODUCT_NAME")
-    private String prodName; // Имя товара
-	
+	private String prodName; // Имя товара
+
 	@Column(name = "PRODUCT_COUNT")
-    private Integer prodCount; // Количество товара
-	
+	private Integer prodCount; // Количество товара
+
 	@ManyToOne
 	@JoinColumn(name = "REQUISITION_ID")
 	private Requisition requistion;

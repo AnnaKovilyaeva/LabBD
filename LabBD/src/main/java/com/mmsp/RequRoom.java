@@ -1,6 +1,7 @@
 package com.mmsp;
 
 import com.mmsp.model.Product;
+import com.mmsp.model.Requisition;
 import com.mmsp.dao.DAO;
 
 import java.io.IOException;
@@ -13,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Выгрузка в ХТМЛ всех Продуктов
+ * Выгрузка в ХТМЛ всех реквизитов
  * @author Алексей
  */
-public class ProdRoom extends HttpServlet {
+public class RequRoom extends HttpServlet {
 
 	private static final long serialVersionUID = -2279462696209669190L;
 	
@@ -42,57 +43,46 @@ public class ProdRoom extends HttpServlet {
 		PrintWriter pw = resp.getWriter();
 		pw.println("<HTML>");
 		pw.println("<HEAD>");
-		pw.println("<TITLE>Product List</TITLE>");
+		pw.println("<TITLE>Requisition List</TITLE>");
 		pw.println("</HEAD>");
 		pw.println("<BODY>");
 
-		DAO<Product> dao_Prod = new DAO<>();
-		List<Product> liProd = dao_Prod.getAll(new Product());
-		if (liProd.size() != 0) {
-			
+		DAO<Requisition> dao_requ = new DAO<>();
+		List<Requisition> liRequ = dao_requ.getAll(new Requisition());
+		if (liRequ.size() != 0) {
+
 			pw.println("<table align=\"center\">");
 			pw.println("<tr>");
 			pw.println("<th>");
-			pw.println("ProductName");
+			pw.println("ID User");
 			pw.println("</th>");
 			pw.println("<th>");
-			pw.println("ProductCount");
-			pw.println("</th>");
-			pw.println("<th>");
-			pw.println("Requistion.toString()");
+			pw.println("List Product");
 			pw.println("</th>");
 			pw.println("</tr>");
-			
-			for (Product u : liProd) {
+
+			for (Requisition u : liRequ) {
 				pw.println("<tr>");
 				pw.println("<td>");
-				pw.println(u.getProdName());
+				pw.println(u.getUserd().getId());
 				pw.println("</td>");
 				pw.println("<td>");
-				pw.println(u.getProdCount());
+				for (Product p : u.getProducts()) {
+					pw.println(p.getProdName() + "<br>");
+				}
 				pw.println("</td>");
 				pw.println("<td>");
-				if (u.getRequistion() != null)
-					pw.println(u.getRequistion().toString());
-				else
-					pw.println("null");
-				pw.println("</td>");
-				pw.println("<td>");
-				pw.println("<a href=\"productAdd.html?id=" + u.getId() + "&prodName=" + u.getProdName() + "&prodCount=" + u.getProdCount() + "\">UPDATE</a>");
-				pw.println("</td>");
-				pw.println("<td>");
-				pw.println("<a href=\"prodDel?id=" + u.getId() + "\">DELETE</a>");
+				pw.println("<a href=\"requDel?id=" + u.getId() + "\">DELETE(Not supported yet)</a>");
 				pw.println("</td>");			
 				pw.println("</tr>");
 			}
 			pw.println("</table>");
 		} else {
-			pw.println("<br>Product not found!");
+			pw.println("<br>Requisition not found!");
 		}
 
-		pw.println("<a href=\"productAdd.html\" align=\"center\">Add new Product</a>");
 		pw.println("<a href=\"userRoom\" align=\"center\">UserRoom</a>");
-		pw.println("<a href=\"requRoom\" align=\"center\">RequisitionRoom</a>");
+		pw.println("<a href=\"prodRoom\" align=\"center\">ProductRoom</a>");
 		pw.println("</BODY>");
 		pw.println("</HTML>");
 	}

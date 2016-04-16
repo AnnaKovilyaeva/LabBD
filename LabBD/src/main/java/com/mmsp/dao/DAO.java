@@ -31,7 +31,6 @@ public class DAO<T> {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();  
 		Session session = sessionFactory.openSession();  
 		session.beginTransaction();
-		// Subject subject = (Subject)session.load(Subject.class, SUBJECT_ID);
 		session.delete(obj);
 		System.out.println("Deleted Successfully");
 		session.getTransaction().commit();

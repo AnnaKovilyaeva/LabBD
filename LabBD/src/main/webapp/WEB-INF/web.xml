@@ -46,6 +46,20 @@
   </servlet>
   
   
+  <servlet>
+  	<servlet-name>requRoom</servlet-name>
+  	<servlet-class>com.mmsp.RequRoom</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>requAdd</servlet-name>
+  	<servlet-class>com.mmsp.RequAdd</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>requDel</servlet-name>
+  	<servlet-class>com.mmsp.RequDel</servlet-class>
+  </servlet>
+  
+  
   
   <servlet-mapping>
   	<servlet-name>initH</servlet-name>
@@ -86,5 +100,19 @@
   <servlet-mapping>
   	<servlet-name>prodDel</servlet-name>
    	<url-pattern>/prodDel</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>requRoom</servlet-name>
+   	<url-pattern>/requRoom</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>requAdd</servlet-name>
+   	<url-pattern>/requAdd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>requDel</servlet-name>
+   	<url-pattern>/requDel</url-pattern>
   </servlet-mapping>
 </web-app>

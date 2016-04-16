@@ -79,7 +79,10 @@ public class UserRoom extends HttpServlet {
 				pw.println("</td>");
 				pw.println("<td>");
 				pw.println("<a href=\"userDel?id=" + u.getId() + "\">DELETE</a>");
-				pw.println("</td>");			
+				pw.println("</td>");
+				pw.println("<td>");
+				pw.println("<a href=\"requAdd.jsp?id=" + u.getId() + "\">ADD REQUISITION</a>");
+				pw.println("</td>");
 				pw.println("</tr>");
 			}
 			pw.println("</table>");
@@ -88,6 +91,8 @@ public class UserRoom extends HttpServlet {
 		}
 
 		pw.println("<a href=\"userAdd.html\" align=\"center\">Add new User</a>");
+		pw.println("<a href=\"requRoom\" align=\"center\">RequisitionRoom</a>");
+		pw.println("<a href=\"prodRoom\" align=\"center\">ProductRoom</a>");
 		pw.println("</BODY>");
 		pw.println("</HTML>");
 	}
