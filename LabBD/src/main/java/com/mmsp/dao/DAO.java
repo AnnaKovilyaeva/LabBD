@@ -2,6 +2,7 @@ package com.mmsp.dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,15 +11,17 @@ import com.mmsp.util.HibernateUtil;
 
 //https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/queryhql.html
 
+// ОСТОРОЖНО! ПРИМЕНЕНО ОБЪЕКТНО ОРИЕНТИРОВАННОЕ КОСТЫЛИРОВАНИЕ!!!
+
 @SuppressWarnings("unchecked")
 public class DAO<T> {
-	
+
 	public Long add(T obj) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();  
-		//getting session object from session factory  
-		Session session = sessionFactory.openSession();  
-		//getting transaction object from session object  
-		session.beginTransaction();  
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		//getting session object from session factory
+		Session session = sessionFactory.openSession();
+		//getting transaction object from session object
+		session.beginTransaction();
 		Long iValue = (Long) session.save(obj);
 		System.out.println("Inserted Successfully");
 		session.getTransaction().commit();
@@ -58,9 +61,11 @@ public class DAO<T> {
 		//System.out.println("from " + obj.getClass().getName());
 		List<T> objects = query.list();
 		System.out.println("Found ALL Successfully");
-		for(T obj_out : objects)
-		{
-			System.out.println(obj_out.toString());
+		if (obj.getClass().getName().equals(com.mmsp.model.Requisition.class.getName())) {
+			for (T temp : objects) {
+				Hibernate.initialize(((com.mmsp.model.Requisition) temp).getProducts());
+				((com.mmsp.model.Requisition) temp).getProducts().size();
+			}
 		}
 		session.getTransaction().commit();
 		session.flush();
@@ -74,9 +79,13 @@ public class DAO<T> {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		value = (T) session.get(obj.getClass(), id);
-		if (value != null)
+		if (value != null) {
 			System.out.println("Found by ID Successfully");
-		else
+			if (obj.getClass().getName().equals(com.mmsp.model.Requisition.class.getName())) {
+				Hibernate.initialize(((com.mmsp.model.Requisition) value).getProducts());
+				((com.mmsp.model.Requisition) value).getProducts().size();
+			}
+		} else
 			System.err.println("NOT FOUND by ID");
 		session.getTransaction().commit();
 		session.flush();

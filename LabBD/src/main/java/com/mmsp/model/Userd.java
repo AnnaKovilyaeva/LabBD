@@ -17,20 +17,15 @@ import javax.persistence.Table;
 public class Userd {
 
 	public Userd() {
-		super();
+		this(null, null, null, null);
 	}
 
 	public Userd(String fN, String lN, String mN) {
-		super();
-		firstName = fN;
-		lastName = lN;
-		middleName = mN;
-		Requisitions = null;
+		this(null, fN, lN, mN);
 	}
 
 	public Userd(Long id2) {
-		super();
-		this.id = id2;
+		this(id2, null, null, null);
 	}
 
 	public Userd(Long id, String fN, String lN, String mN) {
@@ -38,7 +33,7 @@ public class Userd {
 		this.firstName = fN;
 		this.lastName = lN;
 		this.middleName = mN;
-		this.Requisitions = null;
+		//this.Requisitions = null;
 	}
 
 	@Id
@@ -55,8 +50,8 @@ public class Userd {
 	@Column(name = "USERD_MIDDLE_NAME")
 	private String middleName; // Отчество
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userd")
-	private Set<Requisition> Requisitions = new HashSet<Requisition>();
+	//@OneToMany(fetch = FetchType.EAGER, mappedBy = "userd")
+	//private Set<Requisition> Requisitions = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -90,11 +85,11 @@ public class Userd {
 		this.middleName = middleName;
 	}
 
-	public Set<Requisition> getRequisitions() {
+	/*public Set<Requisition> getRequisitions() {
 		return Requisitions;
 	}
 
 	public void setRequisitions(Set<Requisition> requisitions) {
 		Requisitions = requisitions;
-	}
+	}*/
 }

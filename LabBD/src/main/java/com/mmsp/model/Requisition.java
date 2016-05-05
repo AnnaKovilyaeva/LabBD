@@ -3,7 +3,11 @@ package com.mmsp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import com.mmsp.util.HibernateUtil;
+
+// CASCADE STYLE // https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/engine/CascadeStyle.html
 
 @Entity
 @Table(name = "REQUISITION")
@@ -23,15 +37,16 @@ public class Requisition {
 	@Column(name = "REQUISITION_ID")
 	private Long id;
 
-	//@Column(name = "REQUISITION_COUNT")
-	//private Integer requCount; // Количество заказываемового товара
+	@Column(name = "REQUISITION_USER_ID")
+	private Long userId; // ID Узер, который заказ сделал
 
-	@ManyToOne
-	@JoinColumn(name = "USERD_ID")
-	private Userd userd;
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "requistion")
-	private Set<Product> products = new HashSet<>();
+	@ElementCollection
+	@CollectionTable(name = "RECORDS", joinColumns = @JoinColumn(name="REQUISITION_RECORD_ID"))
+		@AttributeOverrides({
+			@AttributeOverride(name = "idProd", column = @Column(name="fid_Prod")),
+			@AttributeOverride(name = "count", column = @Column(name="fcount_Prod"))
+		})
+	private Set<Record> products = new HashSet<>();
 
 	public Requisition(Long id2) {
 		this.id = id2;
@@ -48,31 +63,31 @@ public class Requisition {
 		this.id = id;
 	}
 
-	/*public Integer getRequCount() {
-		return requCount;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setRequCount(Integer requCount) {
-		this.requCount = requCount;
-	}*/
-
-	public Userd getUserd() {
-		return userd;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public void setUserd(Userd userd) {
-		this.userd = userd;
-	}
+	public Set<Record> getProducts() { // UNDONE Lazy Init
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Set<Record> setProd = null;
+		try {
+			Hibernate.initialize(.getFaqAnswers());
 
-	public Set<Product> getProducts() {
+			session.commit();
+			faqQuestions.getFaqAnswers().size();
+		} finally {
+			session.close();
+		}*/
 		return products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(Set<Record> products) {
 		this.products = products;
-	}
-
-	public void addProducts(Product product) {
-		this.products.add(product);
 	}
 }

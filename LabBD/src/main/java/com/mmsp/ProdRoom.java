@@ -58,9 +58,6 @@ public class ProdRoom extends HttpServlet {
 			pw.println("<th>");
 			pw.println("ProductCount");
 			pw.println("</th>");
-			pw.println("<th>");
-			pw.println("Requistion.toString()");
-			pw.println("</th>");
 			pw.println("</tr>");
 			
 			for (Product u : liProd) {
@@ -70,12 +67,6 @@ public class ProdRoom extends HttpServlet {
 				pw.println("</td>");
 				pw.println("<td>");
 				pw.println(u.getProdCount());
-				pw.println("</td>");
-				pw.println("<td>");
-				if (u.getRequistion() != null)
-					pw.println(u.getRequistion().toString());
-				else
-					pw.println("null");
 				pw.println("</td>");
 				pw.println("<td>");
 				pw.println("<a href=\"productAdd.html?id=" + u.getId() + "&prodName=" + u.getProdName() + "&prodCount=" + u.getProdCount() + "\">UPDATE</a>");

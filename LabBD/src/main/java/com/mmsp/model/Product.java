@@ -14,13 +14,15 @@ import javax.persistence.Table;
 public class Product {
 
 	public Product() {
-		super();
+		this(null, null, 0);
 	}
 
 	public Product(Long id) {
-		super();
-		this.id = id;
-		this.requistion = null;
+		this(id, null, 0);
+	}
+
+	public Product(String pN, int pC) {
+		this(null, pN, pC);
 	}
 
 	public Product(Long lVal, String pN, int pC) {
@@ -28,14 +30,6 @@ public class Product {
 		this.id = lVal;
 		this.prodCount = pC;
 		this.prodName = pN;
-		this.requistion = null;
-	}
-
-	public Product(String pN, int pC) {
-		super();
-		this.prodCount = pC;
-		this.prodName = pN;		
-		this.requistion = null;
 	}
 
 	@Id
@@ -48,10 +42,6 @@ public class Product {
 
 	@Column(name = "PRODUCT_COUNT")
 	private Integer prodCount; // Количество товара
-
-	@ManyToOne
-	@JoinColumn(name = "REQUISITION_ID")
-	private Requisition requistion;
 
 	public Long getId() {
 		return id;
@@ -75,13 +65,5 @@ public class Product {
 
 	public void setProdCount(Integer prodCount) {
 		this.prodCount = prodCount;
-	}
-
-	public Requisition getRequistion() {
-		return requistion;
-	}
-
-	public void setRequistion(Requisition requistion) {
-		this.requistion = requistion;
 	}
 }

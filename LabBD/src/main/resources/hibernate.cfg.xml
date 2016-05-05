@@ -10,9 +10,10 @@
     <property name="connection.username"/>
     <property name="connection.password"/>
     <property name="hibernate.hbm2ddl.auto">create</property>
-    
+
     <mapping class="com.mmsp.model.Userd"/>
     <mapping class="com.mmsp.model.Product"/>
     <mapping class="com.mmsp.model.Requisition"/>
+    <mapping class="com.mmsp.model.Record"/>
   </session-factory>
 </hibernate-configuration>

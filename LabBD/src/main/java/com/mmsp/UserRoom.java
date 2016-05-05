@@ -81,7 +81,7 @@ public class UserRoom extends HttpServlet {
 				pw.println("<a href=\"userDel?id=" + u.getId() + "\">DELETE</a>");
 				pw.println("</td>");
 				pw.println("<td>");
-				pw.println("<a href=\"requAdd.jsp?id=" + u.getId() + "\">ADD REQUISITION</a>");
+				pw.println("<a href=\"requAdd.jsp?id=" + u.getId() + "\">ADD REQUISITION OR CHANGE</a>");
 				pw.println("</td>");
 				pw.println("</tr>");
 			}

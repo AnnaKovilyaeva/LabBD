@@ -4,63 +4,70 @@ import com.mmsp.dao.DAO;
 import com.mmsp.model.Product;
 import com.mmsp.model.Requisition;
 import com.mmsp.model.Userd;
+import com.mmsp.model.Record;
 import javax.servlet.ServletException;
 import javax.servlet.SingleThreadModel;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class RequAdd extends HttpServlet implements SingleThreadModel {
+public class RequAdd extends HttpServlet implements SingleThreadModel { // UNDONE
 
 	private static final long serialVersionUID = -5194851994417726484L;
-	private String[] arProd;
-	private String sId;
+	private Long lIdProd; // ID продукта
+	private int count; // Количество товара
+	private Long lId; // ID User'a
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		sId = request.getParameter("id");
-		arProd = request.getParameterValues("requs");
+		try {
+			lId = Long.valueOf(request.getParameter("id"));
+			lIdProd = Long.valueOf(request.getParameter("prod"));
+			count = Integer.parseInt(request.getParameter("count"));
+		} catch (NumberFormatException ex) {
+			System.err.println("ВСЁ НАКРЫЛОСЬ!!! AHTUNG!");
+			ex.printStackTrace();
+		}
 		doIt(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		sId = request.getParameter("id");
-		arProd = request.getParameterValues("requs");
-		System.err.println("Length == " + request.getParameterValues("requs").length);
-		doIt(request, response);
+		System.err.println("КТО_ТО ВОСПОЛЬЗОВАЛСЯ doPost()");
 	}
 
 	private void doIt(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		response.setStatus(200);
-		System.err.println("id Userd == " + sId);
-		for (String s : arProd) {
-			System.err.println("id Product == " + s);
-		}
 
 		DAO<Requisition> dao_requ = new DAO<>();
-		DAO<Userd> dao_user = new DAO<>();
-		DAO<Product> dao_prod = new DAO<>();
-		Requisition r = new Requisition();
-		Userd ud = dao_user.getById(new Userd(), Long.valueOf(sId));
-		ud.getRequisitions().add(r);
-		dao_user.update(ud);
-		r.setUserd(ud);
-		r.setId(dao_requ.add(r));
-		for (String s : arProd) {
-			Product p = dao_prod.getById(new Product(), Long.valueOf(s));
-			p.setRequistion(r);
-			dao_prod.update(p);
-			r.addProducts(p);
+
+		// Если пользователь с lId существует, то запомним его
+		List<Requisition> liReq = dao_requ.getAll(new Requisition());
+		Long i = null;
+		for (Requisition rTemp : liReq) {
+			if (rTemp.getUserId() == lId) {
+				i = lId;
+				break;
+			}
 		}
 
-		System.err.println("Requisition was added with ID == " + r.getId());
-		for (Product p : r.getProducts()) {
-			System.err.println("prod name == " + p.getProdName());
-		}
+		// Достанем из БД существующий реквизит или создадим новый
+		Requisition r = null;
+		if (i != null) {
+			r = dao_requ.getById(new Requisition(), i);
+		} else r = new Requisition();
+
+		r.setUserId(lId); // На всякий случай запомним
+
+		Record rec = new Record();
+		rec.setCount(count);
+		rec.setIdProd(lIdProd);
+		r.getProducts().add(rec);
+		dao_requ.update(r);
 
 		response.sendRedirect("requRoom");
 	}
